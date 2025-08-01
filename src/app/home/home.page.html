@@ -6,7 +6,7 @@
 
 <ion-content class="ion-padding">
   <div class="pokemon-grid">
-    <ng-container *ngFor="let pokemon of pokemons | slice:0:6">
+    <ng-container *ngFor="let pokemon of pokemons">
       <ion-card *ngIf="pokemon?.sprites?.front_default" [routerLink]="['/detalhes', pokemon.name]">
         <ion-img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}"></ion-img>
 
@@ -22,5 +22,10 @@
         </ion-card-content>
       </ion-card>
     </ng-container>
+  </div>
+
+  <div class="pagination-buttons">
+    <ion-button (click)="previousPage()" [disabled]="offset === 0">Anterior</ion-button>
+    <ion-button (click)="nextPage()">Próximo</ion-button>
   </div>
 </ion-content>

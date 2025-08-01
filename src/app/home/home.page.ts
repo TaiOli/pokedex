@@ -1,31 +1,53 @@
 import { Component, OnInit } from '@angular/core';
+import { PokeapiService } from '../services/pokeapi.service';
+import { forkJoin, Observable } from 'rxjs';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router'; 
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, IonicModule, RouterModule, HttpClientModule],
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+  standalone: true, 
+  imports: [
+    IonicModule,
+    CommonModule,
+    RouterModule
+  ]
 })
 export class HomePage implements OnInit {
   pokemons: any[] = [];
+  limit: number = 6;
+  offset: number = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private pokeapiService: PokeapiService) {}
 
   ngOnInit() {
-    const names = ['pikachu', 'bulbasaur', 'charmander', 'squirtle', 'jigglypuff', 'meowth'];
-    const requests = names.map(name =>
-      this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`).toPromise()
-    );
+    this.loadPokemons();
+  }
 
-    Promise.all(requests)
-      .then(results => {
-        this.pokemons = results;
-      })
-      .catch(err => console.error(err));
+  loadPokemons() {
+    this.pokeapiService.getPokemons(this.limit, this.offset).subscribe(response => {
+      const requests: Observable<any>[] = response.results.map((pokemon: any) =>
+        this.pokeapiService.getPokemon(pokemon.name)
+      );
+
+      forkJoin(requests).subscribe((pokemonDetails: any[]) => {
+        this.pokemons = pokemonDetails;
+      });
+    });
+  }
+
+  nextPage() {
+    this.offset += this.limit;
+    this.loadPokemons();
+  }
+
+  previousPage() {
+    if (this.offset >= this.limit) {
+      this.offset -= this.limit;
+      this.loadPokemons();
+    }
   }
 }
