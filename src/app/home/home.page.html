@@ -1,10 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pokédex</ion-title>
+    <ion-title>Pokémon</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" style="text-align:center;">
-  <h2 class="text-capitalize">{{ pokemon?.name || 'Carregando...' }}</h2>
-  <img *ngIf="pokemon?.sprites?.front_default" [src]="pokemon.sprites.front_default" alt="Imagem do Pokémon"/>
+<ion-content class="ion-padding">
+  <div class="pokemon-grid">
+    <ng-container *ngFor="let pokemon of pokemons | slice:0:6">
+      <ion-card *ngIf="pokemon?.sprites?.front_default" [routerLink]="['/detalhes', pokemon.name]">
+        <ion-img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}"></ion-img>
+
+        <ion-card-header>
+          <p class="pokemon-id">Nº {{ pokemon.id | number:'4.0' }}</p>
+          <ion-card-title class="text-capitalize">{{ pokemon.name }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-chip *ngFor="let type of pokemon.types">
+            <ion-label [ngClass]="'type-' + type.type.name">{{ type.type.name | titlecase }}</ion-label>
+          </ion-chip>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </div>
 </ion-content>
