@@ -15,11 +15,11 @@ ion-card {
 }
 
 ion-img {
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto 10px;
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin: 10px auto 0;
   display: block;
-  max-height: 130px;
 }
 
 @media (max-width: 900px) {
@@ -50,9 +50,8 @@ ion-img {
   }
 }
 
-.pagination-buttons {
+.pagination{
   display: flex;
-  justify-content: center; 
-  gap: 10px; 
-  padding: 10px 0;
+  justify-content: center;
+  margin-top: 20px;
 }

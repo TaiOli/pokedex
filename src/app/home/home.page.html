@@ -6,16 +6,16 @@
 
 <ion-content class="ion-padding">
   <div class="pokemon-grid">
-    <ng-container *ngFor="let pokemon of pokemons">
+    <ng-container *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
       <ion-card *ngIf="pokemon?.sprites?.front_default" [routerLink]="['/detalhes', pokemon.name]">
         <ion-img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}"></ion-img>
 
         <ion-card-header>
-          <p class="pokemon-id">Nº {{ pokemon.id | number:'4.0' }}</p>
           <ion-card-title class="text-capitalize">{{ pokemon.name }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
+          <p class="pokemon-id">Nº {{ pokemon.id | number:'4.0' }}</p>
           <ion-chip *ngFor="let type of pokemon.types">
             <ion-label [ngClass]="'type-' + type.type.name">{{ type.type.name | titlecase }}</ion-label>
           </ion-chip>
@@ -23,9 +23,7 @@
       </ion-card>
     </ng-container>
   </div>
-
-  <div class="pagination-buttons">
-    <ion-button (click)="previousPage()" [disabled]="offset === 0">Anterior</ion-button>
-    <ion-button (click)="nextPage()">Próximo</ion-button>
-  </div>
+  <div class="pagination">
+    <pagination-controls previousLabel="Anterior" nextLabel="Próximo" (pageChange)="page = $event"></pagination-controls>
+</div>
 </ion-content>
