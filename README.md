@@ -12,8 +12,14 @@ Projeto Pokédex desenvolvido com Ionic e Angular de forma responsiva, que exibe
 
  Media queries para criar layouts que se adaptam a diferentes tamanhos de tela e navegação simples para usuários com diferentes necessidades.
 
- ## Funcionalidades
+ ## Bibliotecas :
 
-1. Uso de bibliotecas de terceiros para lidar com dependências.  
-2. Paginação na lista de Pokémons.  
-3. Injeção de Dependência.
+Uso de bibliotecas como ngx-pagination para paginação no front-end e também as bibliotecas padrão do Angular e Ionic
+
+ ## Paginação:
+
+ A paginação foi feita carregando uma lista grande de Pokémons de uma só vez e dividindo essa lista visualmente em páginas com ngx-pagination.
+
+ ## Injeção de dependência:
+
+O PokeapiServic foi injetado no componente via construtor para se comunicar com a com a PokéAPI que é uma API pública que fornece dados dos Pokémons.
