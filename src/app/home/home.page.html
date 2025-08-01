@@ -1,29 +1,49 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Pokémon</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/favorites']" class="button-favorite">
+        Favoritos
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <div class="pokemon-grid">
     <ng-container *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
-      <ion-card *ngIf="pokemon?.sprites?.front_default" [routerLink]="['/detalhes', pokemon.name]">
+      <ion-card *ngIf="pokemon?.sprites?.front_default" class="pokemon-card">
+        
         <ion-img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}"></ion-img>
 
-        <ion-card-header>
-          <ion-card-title class="text-capitalize">{{ pokemon.name }}</ion-card-title>
-        </ion-card-header>
+        <span 
+          (click)="toggleFavorite(pokemon); $event.stopPropagation()" 
+          class="favorite-star">
+          {{ isFavorite(pokemon) ? '★' : '☆' }}
+        </span>
 
-        <ion-card-content>
-          <p class="pokemon-id">Nº {{ pokemon.id | number:'4.0' }}</p>
-          <ion-chip *ngFor="let type of pokemon.types">
-            <ion-label [ngClass]="'type-' + type.type.name">{{ type.type.name | titlecase }}</ion-label>
-          </ion-chip>
-        </ion-card-content>
+        <div 
+          [routerLink]="['/detalhes', pokemon.name]" 
+          class="router-link-area">
+          
+          <ion-card-header>
+            <ion-card-title class="text-capitalize">{{ pokemon.name }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p class="pokemon-id">Nº {{ pokemon.id | number:'4.0' }}</p>
+            <ion-chip *ngFor="let type of pokemon.types">
+              <ion-label [ngClass]="'type-' + type.type.name">{{ type.type.name | titlecase }}</ion-label>
+            </ion-chip>
+          </ion-card-content>
+
+        </div>
       </ion-card>
     </ng-container>
   </div>
+
   <div class="pagination">
     <pagination-controls previousLabel="Anterior" nextLabel="Próximo" (pageChange)="page = $event"></pagination-controls>
-</div>
+  </div>
 </ion-content>

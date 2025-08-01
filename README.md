@@ -4,9 +4,18 @@
 [![Angular](https://img.shields.io/badge/Angular-v16.2.7-red?logo=angular&logoColor=white)](https://angular.io/)
 
 
-## Sobre o projeto
+## Como funciona
 
-Projeto Pokédex desenvolvido com Ionic e Angular de forma responsiva, que exibe uma lista de Pokémons onde selecionando o seu pokémon é exibido detalhes como altura, peso, experiência base, tipo, habilidade e ordem.
+- Na página inicial, exibe uma lista de Pokémons onde clicando no card do seu pokémon é direcionado para a página de detalhes.
+
+- Na página detalhes, são exibido informações como altura, peso, experiência base, tipo, habilidade e ordem do seu pokémon.
+
+- Cada card de pokémon na página inicial, possui uma estrela que pode ser clicada para favoritar o Pokémon preferido. Quando um Pokémon é favoritado, o usuário é automaticamente redirecionado para a página de favoritos.
+
+- Na página de favoritos, cada Pokémon pode ser removido da lista clicando no botão "✕" no canto superior direito do card.
+
+- Na página inicial é possível naavegar para a página de favoritos clicando na opção no navbar.
+
 
 ## Acessibilidade e Responsividade
 

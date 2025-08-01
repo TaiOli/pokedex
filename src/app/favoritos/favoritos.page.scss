@@ -50,36 +50,44 @@ ion-img {
   }
 }
 
-.pagination{
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+.remove-button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .pokemon-card {
   position: relative;
 }
 
-.favorite-star {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 32px;
-  color: gold;
-  cursor: pointer;
+.home-button {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-button svg {
+  width: 32px;
+  height: 32px;
+  color: var(--ion-color-primary);
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--ion-color-primary);
   user-select: none;
-  text-shadow:
-    0 0 5px gold,
-    0 0 10px gold,
-    0 0 20px orange;
-  pointer-events: auto;
-}
-
-.button-favorite{
-  text-transform: none !important;
-}
-
-.router-link-area {
-  cursor: pointer;
-  display: block;
+  margin-bottom: 10px;
+  padding-right: 10px;
 }
