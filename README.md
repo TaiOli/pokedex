@@ -11,3 +11,9 @@ Projeto Pokédex desenvolvido com Ionic e Angular de forma responsiva, que exibe
 ## Acessibilidade e Responsividade
 
  Media queries para criar layouts que se adaptam a diferentes tamanhos de tela e navegação simples para usuários com diferentes necessidades.
+
+ ## Funcionalidades
+
+1. Uso de bibliotecas de terceiros para lidar com dependências.  
+2. Paginação na lista de Pokémons.  
+3. Injeção de Dependência.
