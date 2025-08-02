@@ -2,12 +2,12 @@
   <ion-toolbar>
     <ion-title>Detalhes</ion-title>
     <ion-buttons slot="end" class="home-container">
-      <ion-button [routerLink]="['/']" fill="clear" title="Home" class="home-button">
+     <ion-button data-testid="botao-home" [routerLink]="['/']" fill="clear" title="Home" class="home-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
         </svg>
       </ion-button>
-      <span>Início</span>
+      <span class="botao-inicio">Início</span>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
