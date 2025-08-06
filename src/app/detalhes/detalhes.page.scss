@@ -1,4 +1,3 @@
-
 .home-button {
   padding: 0;
   width: 40px;
@@ -23,4 +22,238 @@
   user-select: none;
   margin-bottom: 10px;
   padding-right: 10px;
+}
+
+.detalhes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1200px; 
+  margin: 0 auto;     
+  padding: 0 10px;   
+}
+
+.imagem-container {
+  text-align: center;
+  flex: 1 1 300px;      
+  max-width: 400px;     
+  min-width: 250px;     
+}
+
+.pokemon-image {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.pokemon-name {
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+  display: block;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pokemon-number {
+  color: gray;
+  font-weight: normal;
+  margin-right: 8px;
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pokemon-stats-info {
+  margin-top: 15px;
+  padding-left: 0; 
+  text-align: left;
+}
+
+.pokemon-stats-info h3 {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.pokemon-stats-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pokemon-stats-info ul > li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.gauge {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0 10px 0 0;
+}
+
+.gauge li {
+  width: 10px;
+  height: 12px;
+  background-color: #ddd;
+  margin-right: 2px;
+  border-radius: 2px;
+}
+
+.gauge li.meter {
+  background-color: #4caf50;
+}
+
+.pokemon-stats-info span {
+  min-width: 110px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.info-container {
+  flex: 1 1 300px;
+  max-width: 400px;
+  min-width: 250px;
+  padding-top: 2%;
+}
+
+.ability-chip {
+  --background: #3b82f6 !important; 
+  --color: white !important;
+  font-weight: 600;
+}
+
+ion-content, .detalhes-container, ion-list, ion-item, ion-label {
+  font-family: 'Poppins', sans-serif;
+}
+
+.pokebolas-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.pokebola {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+  background: var(--pokebola-color, red);
+  left: 3%;
+  margin-bottom: 10%;
+}
+
+.pokebola:hover {
+  transform: scale(1.2);
+}
+
+.pokebola::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: black;
+  transform: translateY(-50%);
+}
+
+.pokebola::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* Media Queries para telas menores */
+
+@media (max-width: 768px) {
+  .detalhes-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imagem-container,
+  .info-container {
+    max-width: 100%;
+    min-width: auto;
+    flex: none;
+  }
+
+  .pokemon-stats-info {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .pokemon-name {
+    font-size: 1.5rem;
+  }
+
+  .pokemon-number {
+    font-size: 1.2rem;
+  }
+  
+  .gauge li {
+    width: 8px;
+    height: 10px;
+  }
+
+  .info-container ion-item strong {
+    font-size: 0.85rem;
+  }
+
+  .info-container ion-chip ion-label ion-item {
+    font-size: 0.85rem;
+  }
+
+  ::ng-deep .ability-chip {
+    --padding-start: 6px !important;
+    --padding-end: 6px !important;
+    height: auto !important;
+  }
+
+  ::ng-deep .fraquezas-item {
+    align-items: flex-start !important;
+  }
+
+  ::ng-deep .label-fraquezas {
+    display: block !important;
+    width: 100%;
+  }
+
+  ::ng-deep .fraquezas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  ::ng-deep .fraquezas ion-chip {
+    --padding-start: 6px !important;
+    --padding-end: 6px !important;
+    height: auto !important;
+  }
+
+  ::ng-deep .fraquezas ion-label {
+    font-size: 0.75rem !important;
+  }
 }

@@ -30,18 +30,18 @@ export class HomePage implements OnInit {
   constructor(private pokeapiService: PokeapiService, private router: Router) {}
 
   ngOnInit() {
-    this.loadFavoritesFromStorage();
-    this.loadPokemons();
+    this.carregarFavoritosDoStorage();
+    this.carregarPokemons();
   }
 
   ionViewWillEnter() {
-    this.loadFavoritesFromStorage();
+    this.carregarFavoritosDoStorage();
   }
 
-  loadFavoritesFromStorage() {
-    const savedFavorites = localStorage.getItem('favoritePokemons');
-    if (savedFavorites) {
-      this.favoritePokemons = JSON.parse(savedFavorites);
+  carregarFavoritosDoStorage() {
+    const favoritosSalvos = localStorage.getItem('favoritePokemons');
+    if (favoritosSalvos) {
+      this.favoritePokemons = JSON.parse(favoritosSalvos);
       this.favorites = new Set(this.favoritePokemons.map(p => p.id));
     } else {
       this.favoritePokemons = [];
@@ -49,28 +49,25 @@ export class HomePage implements OnInit {
     }
   }
 
-  loadPokemons() {
-    this.pokeapiService.getPokemons(150, 0).subscribe(response => {
-      const requests: Observable<any>[] = response.results.map((pokemon: any) =>
-        this.pokeapiService.getPokemon(pokemon.name)
+  carregarPokemons() {
+    this.pokeapiService.obterPokemons(150, 0).subscribe(response => {
+      const pedidos: Observable<any>[] = response.results.map((pokemon: any) =>
+        this.pokeapiService.obterPokemon(pokemon.name)
       );
 
-      forkJoin(requests).subscribe((pokemonDetails: any[]) => {
-        this.pokemons = pokemonDetails;
-        this.updateFavoritePokemons();
+      forkJoin(pedidos).subscribe((detalhesPokemons: any[]) => {
+        this.pokemons = detalhesPokemons;
+        this.atualizarPokemonsFavoritos();
         localStorage.setItem('allPokemons', JSON.stringify(this.pokemons));
       });
     });
   }
 
-  toggleFavorite(pokemon: any) {
+  alternarFavorito(pokemon: any) {
     if (this.favorites.has(pokemon.id)) {
-      
       this.favorites.delete(pokemon.id);
       this.favoritePokemons = this.favoritePokemons.filter(p => p.id !== pokemon.id);
-    
     } else {
-
       this.favorites.add(pokemon.id);
       this.favoritePokemons.push(pokemon);
       this.router.navigate(['/favoritos']);  
@@ -79,14 +76,14 @@ export class HomePage implements OnInit {
     localStorage.setItem('favoritePokemons', JSON.stringify(this.favoritePokemons));
     localStorage.setItem('favorites', JSON.stringify([...this.favorites]));
 
-    this.updateFavoritePokemons();
+    this.atualizarPokemonsFavoritos();
   }
 
   isFavorite(pokemon: any): boolean {
     return this.favorites.has(pokemon.id);
   }
 
-  updateFavoritePokemons() {
+  atualizarPokemonsFavoritos() {
     this.favoritePokemons = this.pokemons.filter(p => this.favorites.has(p.id));
   }
 }

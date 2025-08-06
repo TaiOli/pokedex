@@ -15,14 +15,16 @@
     <ng-container *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
       <ion-card *ngIf="pokemon?.sprites?.front_default" class="pokemon-card">
 
-        <span (click)="toggleFavorite(pokemon); $event.stopPropagation()" class="favorite-star">{{ isFavorite(pokemon) ? '★' : '☆' }}</span>
+        <span (click)="alternarFavorito(pokemon); $event.stopPropagation()" class="favorite-star">
+          {{ isFavorite(pokemon) ? '★' : '☆' }}
+        </span>
         
         <div [routerLink]="['/detalhes', pokemon.name]" class="router-link-area">
 
           <ion-img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}"></ion-img>
 
           <ion-card-header>
-            <ion-card-title class="text-capitalize">{{ pokemon.name }}</ion-card-title>
+            <ion-card-title class="text-capitalize">{{ pokemon.name | titlecase }}</ion-card-title>
           </ion-card-header>
 
           <ion-card-content>
@@ -40,6 +42,6 @@
   </div>
 
   <div class="pagination">
-    <pagination-controls  previousLabel="Anterior" nextLabel="Próximo" (pageChange)="page = $event"></pagination-controls>
+    <pagination-controls previousLabel="Anterior" nextLabel="Próximo" (pageChange)="page = $event"></pagination-controls>
   </div>
 </ion-content>

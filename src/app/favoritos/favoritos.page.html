@@ -2,12 +2,12 @@
   <ion-toolbar>
     <ion-title>Favoritos</ion-title>
     <ion-buttons slot="end" class="home-container">
-     <ion-button data-testid="botao-home" [routerLink]="['/']" fill="clear" title="Home" class="home-button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-      </svg>
-    </ion-button>
-    <span class="botao-inicio">Início</span>
+      <ion-button data-testid="botao-home" [routerLink]="['/']" fill="clear" title="Início" class="home-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+      </ion-button>
+      <span class="botao-inicio">Início</span>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -15,23 +15,24 @@
 <ion-content class="ion-padding">
   <div class="pokemon-grid">
     <ion-card *ngFor="let pokemon of favoritePokemons" class="pokemon-card">
-     
-      <button class="remove-button" (click)="removeFromFavorites(pokemon); $event.stopPropagation()">✕</button>
 
-      <div [routerLink]="['/detalhes', pokemon.name]" class="router-link-area"></div>
+      <button class="remove-button" (click)="removerDosFavoritos(pokemon); $event.stopPropagation()">✕</button>
 
-      <ion-img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}"></ion-img>
+      <div [routerLink]="['/detalhes', pokemon.name]" class="router-link-area">
+        <ion-img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}"></ion-img>
 
-      <ion-card-header>
-        <ion-card-title class="text-capitalize">{{ pokemon.name }}</ion-card-title>
-      </ion-card-header>
+        <ion-card-header>
+          <ion-card-title class="text-capitalize">{{ pokemon.name | titlecase }}</ion-card-title>
+        </ion-card-header>
 
-      <ion-card-content>
-        <p class="pokemon-id">Nº {{ pokemon.id | number:'4.0' }}</p>
-        <ion-chip *ngFor="let type of pokemon.types">
-          <ion-label [ngClass]="'type-' + type.type.name">{{ type.type.name | titlecase }}</ion-label>
-        </ion-chip>
-      </ion-card-content>
+        <ion-card-content>
+          <p class="pokemon-id">Nº {{ pokemon.id | number:'4.0' }}</p>
+          <ion-chip *ngFor="let type of pokemon.types">
+            <ion-label [ngClass]="'type-' + type.type.name">{{ type.type.name | titlecase }}</ion-label>
+          </ion-chip>
+        </ion-card-content>
+      </div>
+
     </ion-card>
   </div>
 </ion-content>

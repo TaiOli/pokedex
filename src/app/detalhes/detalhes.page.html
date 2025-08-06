@@ -2,8 +2,8 @@
   <ion-toolbar>
     <ion-title>Detalhes</ion-title>
     <ion-buttons slot="end" class="home-container">
-     <ion-button data-testid="botao-home" [routerLink]="['/']" fill="clear" title="Home" class="home-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+      <ion-button data-testid="botao-home" [routerLink]="['/']" fill="clear" title="Home" class="home-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
         </svg>
       </ion-button>
@@ -13,15 +13,77 @@
 </ion-header>
 
 <ion-content class="ion-padding" *ngIf="pokemon">
-  <h2 class="text-capitalize">{{ pokemon.name }}</h2>
-  <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
+  <div class="detalhes-container">
 
-  <ion-list>
-    <ion-item><strong>Altura:</strong> {{ pokemon.height }}</ion-item>
-    <ion-item><strong>Peso:</strong> {{ pokemon.weight }}</ion-item>
-    <ion-item><strong>Experiência base:</strong> {{ pokemon.base_experience }}</ion-item>
-    <ion-item><strong>Tipo:</strong> {{ pokemon.types[0]?.type.name }}</ion-item>
-    <ion-item><strong>Habilidade:</strong> {{ pokemon.abilities[0]?.ability.name }}</ion-item>
-    <ion-item><strong>Ordem:</strong> {{ pokemon.order }}</ion-item>
-  </ion-list>
+    <h2 class="pokemon-name">
+      <span class="pokemon-number">Nº {{ pokemon.id | number:'4.0' }}</span> {{ pokemon.name | titlecase }}
+    </h2>
+
+    <div class="imagem-container">
+      <img [src]="pokemon.sprites.front_default" class="pokemon-image" alt="{{ pokemon.name }}" />
+
+      <div class="pokemon-stats-info">
+        <h3>Estatísticas</h3>
+        <ul>
+          <li *ngFor="let stat of pokemon.stats">
+            <ul class="gauge">
+              <li *ngFor="let tick of criarMarcasDeProgresso()" [class.meter]="tick <= stat.base_stat"></li>
+            </ul>
+            <span>{{ stat.stat.name | titlecase }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-container">
+      <ion-list>
+        <ion-item><strong>Altura:&nbsp;</strong> {{ pokemon.height }}</ion-item>
+        <ion-item><strong>Peso:&nbsp;</strong> {{ pokemon.weight }}</ion-item>
+        <ion-item><strong>Sexo:&nbsp;</strong> {{ sexo }}</ion-item>
+
+        <ion-item lines="none" class="tipo-item">
+          <ion-label class="label-tipo">
+            <strong>Tipo:</strong>
+            <div class="tipo-chips">
+              <ion-chip *ngFor="let type of pokemon.types" color="primary">
+                <ion-label>{{ type.type.name | titlecase }}</ion-label>
+              </ion-chip>
+            </div>
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none" class="habilidades-item">
+          <ion-label class="label-habilidades">
+            <strong>Habilidades:</strong>
+            <div class="habilidades-chips">
+              <ion-chip *ngFor="let habilidade of pokemon.abilities" class="ability-chip">
+                <ion-label>{{ habilidade.ability.name | titlecase }}</ion-label>
+              </ion-chip>
+            </div>
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none" class="fraquezas-item">
+          <ion-label class="label-fraquezas">
+            <strong>Fraquezas:</strong>
+            <div class="fraquezas">
+              <ion-chip *ngFor="let fraqueza of fraquezas" color="danger">
+                <ion-label>{{ fraqueza | titlecase }}</ion-label>
+              </ion-chip>
+            </div>
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none" class="evolucoes-item" *ngIf="evolucoes.length > 0">
+          <div class="label-evolucoes">
+            <strong>Evoluções:</strong>
+            <div class="pokebolas-container">
+              <div *ngFor="let evo of evolucoes" class="pokebola" [style.background]="evo.cor" (click)="irParaEvolucao(evo.nome)" [title]="evo.nome | titlecase"></div>
+            </div>
+          </div>
+        </ion-item>
+
+      </ion-list>
+    </div>
+  </div>
 </ion-content>

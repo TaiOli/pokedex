@@ -18,25 +18,23 @@ export class FavoritesPage implements OnInit {
   favoritePokemons: any[] = [];
 
   ngOnInit() {
-    this.loadFavorites();
+    this.carregarFavoritos();
   }
 
-  loadFavorites() {
-    const saved = localStorage.getItem('favoritePokemons');
-    this.favoritePokemons = saved ? JSON.parse(saved) : [];
+  carregarFavoritos() {
+    const salvos = localStorage.getItem('favoritePokemons');
+    this.favoritePokemons = salvos ? JSON.parse(salvos) : [];
   }
 
-  removeFromFavorites(pokemon: any) {
-    
+  removerDosFavoritos(pokemon: any) {
     this.favoritePokemons = this.favoritePokemons.filter(p => p.id !== pokemon.id);
-    
     localStorage.setItem('favoritePokemons', JSON.stringify(this.favoritePokemons));
 
-    const savedSet = localStorage.getItem('favorites');
-    if (savedSet) {
-      const favoriteIds = new Set<number>(JSON.parse(savedSet));
-      favoriteIds.delete(pokemon.id);
-      localStorage.setItem('favorites', JSON.stringify([...favoriteIds]));
+    const salvosSet = localStorage.getItem('favorites');
+    if (salvosSet) {
+      const favoritosSet = new Set<number>(JSON.parse(salvosSet));
+      favoritosSet.delete(pokemon.id);
+      localStorage.setItem('favorites', JSON.stringify([...favoritosSet]));
     }
   }
 }
